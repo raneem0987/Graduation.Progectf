@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./img/logo_nav.png">
+    <meta http-equiv="refresh" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/features.css">
+    <title>Phirus</title>
+</head>
+
+<body>
+    <nav>
+        <div class="logo_navbar_home">
+            <a href="home.php">
+                <img class="logo_img" src="./img/logo_nav.png" alt="logo_icon"></a>
+            <a class="logo_text" href="home.php">Phirus</a>
+        </div>
+        <ul class="links">
+            <a class="li" href="home.php">
+                <li>Home</li>
+            </a>
+            <a class="li" href="#">
+                <li>Features</li>
+            </a>
+            <a class="li" href="#">
+                <li>Pro</li>
+            </a>
+            <a class="li" href="#footer">
+                <li>About us</li>
+            </a>
+        </ul>
+        <div class="links_navbar">
+            <a class="login_nav" href="login.php">Login</a>
+            <a class="signup_nav" href="signup.php">Sign up</a>
+        </div>
+    </nav>
+
+    <div class="hero_section">
+        <h1 class="section_1_h1"> How do yo want to scan your E-mail ?</h1>
+        <div class="text_and_img">
+            <p class="text_p_1">
+                Now , you can scan your e-mail and be<br>
+                sure that your e-mail isn’t phishing or<br>
+                malicious with some Primary features<br>
+                and every primary feature has some sub<br>
+                features
+            </p>
+            <img class="image_section_1" src="./img/features_1.svg" alt="image">
+        </div>
+    </div>
+
+    <div class="section_2">
+        <h1 class="section_2_h1">
+            Checking the Header of your<br> E-mail
+        </h1>
+        <div class="image_section_2">
+            <div class="img_features_1">
+                <a href="#">
+                    <img src="./img/image 3.svg" alt="image" />
+                    <p>Header</p>
+                </a>
+            </div>
+            <div class="img_features_2">
+                <a href="Body.html">
+                    <img src="./img/image 2.svg" alt="image" />
+                    <p>Body</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="section_all_features" class="section_all_features">
+        <h1 class="section_3_h1">
+            How do you want to scan your E-Mail Header ?
+        </h1>
+        <div class="one">
+            <a class="but_1" href="#section_Whois">Whois lookup</a>
+            <a class="but_2" href="spf.html">SPF & DMARK & DKIM Check</a>
+        </div>
+        <div class="two">
+            <a class="but_3" href="domain.html">Check domain in Black List</a>
+            <a class="but_4" href="extract.html">Extract Header Information</a>
+        </div>
+    </div>
+
+    <div id="section_Whois" class="section_Whois">
+        <h1 class="section_4_h1">
+            How do you want to scan your E-MailHeader ?
+        </h1>
+        <div class="three">
+            <a id="but_5" class="but_5" href="">Whois lookup</a>
+            <a class="but_6" href="spf.html">SPF & DMARK & DKIM Check</a>
+        </div>
+        <div class="four">
+            <a class="but_7" href="domain.html">Check domain in Black List</a>
+            <a class="but_8" href="extract.html">Extract Header Information</a>
+        </div>
+    </div>
+
+    <!-- Whois Lookup Section -->
+    <div id="check_Whois_Lookup" class="check_Whois_Lookup">
+        <h1 class="section_5_h1">Whois Lookup</h1>
+        <div class="Whois_Lookup_box">
+            <input id="domain_input" class="check_box" required type="text" placeholder="Input Domain Name....">
+            <p><button id="button_Whois_Lookup" class="button_Whois_Lookup">Check</button></p>
+        </div>
+    </div>
+
+    <div class="feature_Whois_Lookup" style="width: 1450px ; height: 635px" >
+        <p class="text_1"><strong>Domain Name</strong><span class="text_span_1" id="domain_name"></span></p>
+        <p class="text_2"><strong>Registrar</strong><span class="text_span_2" id="registrar"></span></p>
+        <p class="text_3"><strong>Creation Date</strong><span class="text_span_3" id="creation_date"></span></p>
+        <p class="text_4"><strong>Expiration Date</strong><span class="text_span_4" id="expiration_date"></span></p>
+        <p class="text_5"><strong>Update Date</strong><span class="text_span_5" id="updated_date"></span></p>
+        <p class="text_6"><strong>Name Server</strong><span class="text_span_6" id="name_servers"></span></p>
+        <p class="text_7"><strong>Status</strong><span class="text_span_7" id="status"></span></p>
+        <p class="text_7"><strong>Owner</strong><span class="text_span_7" id="owner"></span></p>
+
+    </div>
+
+    <script>
+        document.getElementById("button_Whois_Lookup").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const domainName = document.getElementById("domain_input").value;
+            if (domainName === "") {
+                alert("Please enter a domain name.");
+                return;
+            }
+
+            fetch("https://web-production-98be.up.railway.app/whoise", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ domain: domainName }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Check if the response contains an error
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    // Populate the Whois information
+                    document.getElementById("domain_name").textContent = data.domain_name;
+                    document.getElementById("registrar").textContent = data.registrar;
+                    document.getElementById("creation_date").textContent = data.creation_date;
+                    document.getElementById("expiration_date").textContent = data.expiration_date;
+                    document.getElementById("updated_date").textContent = data.updated_date;
+                    document.getElementById("name_servers").textContent = data.name_servers.join(", ");
+                    document.getElementById("status").textContent = data.status;
+                    document.getElementById("owner").textContent = data.owner;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while fetching WHOIS data.");
+                });
+        });
+    </script>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer_section_1">
+                <div class="icon_and_text">
+                    <a href=""><img class="img_1" src="./img/Logo (1).svg" alt=""></a>
+                    <a href="">
+                        <h2 class="text_h2_section_1">Phirus</h2>
+                    </a>
+                </div>
+                <p class="p_section_1">Copyright © 2024 Phirus.</p>
+                <span class="span_section_1">All rights reserved</span>
+                <div class="icon_three_section_1">
+                    <a href=""><img class="img_2" src="./img/Social Icons.svg" alt="Instagram"></a>
+                    <a href=""><img class="img_3" src="./img/Icons2.svg" alt="Twitter"></a>
+                    <a href=""><img class="img_4" src="./img/Icons3.svg" alt="Youtube"></a>
+                </div>
+            </div>
+            <div class="container_three">
+                <div class="footer_section_2">
+                    <h2 class="text_h2_section_2">Company</h2>
+                    <ul>
+                        <li><a href="">About us</a></li>
+                        <li><a href="">Blog</a></li>
+                        <li><a href="">Contact us</a></li>
+                        <li><a href="">Pricing</a></li>
+                        <li><a href="">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer_section_3">
+                    <h2 class="text_h2_section_3">Support</h2>
+                    <ul>
+                        <li><a href="">Help center</a></li>
+                        <li><a href="">Terms of service</a></li>
+                        <li><a href="">Legal</a></li>
+                        <li><a href="">Privacy policy</a></li>
+                        <li><a href="">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer_section_4">
+                    <h2 class="text_h2_section_4">Stay up to date</h2>
+                    <form class="subscribe_form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><img src="./img/0.svg" alt=""></button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--
+
+    <div class="hero_section">
+        <div class="text_hero">
+            <h1>
+                How do yo want to scan<br>
+                your E-mail ?
+            </h1>
+            <p class="text_p">
+                Now , you can scan your e-mail and<br>
+                be sure that your e-mail isn’t<br>
+                phishing or malicious with some<br>
+                Primary features and every <br>
+                primary feature has some sub<br>
+                features
+            </p>
+        </div>
+        <img class="image_hero_section" src="./img/features_1.svg" alt="image">
+
+    </div>
+
+
+    <div class="section_2">
+        <div>
+            <h2>
+                Checking the Header
+                <br>of your E-mail
+            </h2>
+        </div>
+        <div class="img_features_container">
+            <div class="img_features_2">
+                <a href="#">
+                    <img src="./img/image 3.svg" alt="image" />
+                    <p>Header</p>
+                </a>
+            </div>
+            <div class="img_features_3">
+                <a href="Body.html">
+                    <img src="./img/image 2.svg" alt="image" />
+                    <p>Body</p>
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="section_3" class="section_3">
+        <h1 class="text_section_h3">
+            How do you want to scan your E-Mail <br> Header ?
+        </h1>
+        <div class="one">
+            <a class="but_1" href="#section_4">Whois lookup</a>
+            <a class="but_2" href="#section_spf">SPF & DMARK & DKIM Check</a>
+        </div>
+        <div class="two">
+            <a class="but_3" href="#section_Check">Check domain in Black List</a>
+            <a class="but_4" href="#section_Extract">Extract Header Information</a>
+        </div>
+
+    </div>
+
+    <div id="section_4" class="section_4">
+        <h1 class="text_section_h4">
+            How do you want to scan your E-Mail <br> Header ?
+        </h1>
+        <div class="three">
+            <a id="but_5" class="but_5" href="#section_3">Whois lookup</a>
+            <a class="but_6" href="#section_spf">SPF & DMARK & DKIM Check</a>
+        </div>
+        <div class="four">
+            <a class="but_7" href="#section_Check">Check domain in Black List</a>
+            <a class="but_8" href="#section_Extract">Extract Header Information</a>
+        </div>
+
+    </div>
+    <div class="container">
+        <div class="Whois_Lookup">
+            <h1 class="Whois">Whois Lookup</h1>
+            <div class="lookup_box">
+                <input class="text_box" required type="text" placeholder="Input Domain Name....">
+                <p><button class="btn_box">Check</button></p>
+            </div>
+        </div>
+        <div class="result_container">
+            <p class="text_container_1">
+                <strong>Domain Name</strong><span class="text_span_1">google.com</span>
+            </p>
+            <hr>
+            <p class="text_container_2">
+                <strong>Registrar </strong><img class="icon_container_2" src="./img/Group.svg" alt=""><span
+                    class="text_span">MarkMonitor
+                    Inc</span>
+            </p>
+            <hr>
+            <p class="text_container_3">
+                <strong>Creation Date</strong><span class="text_span">1997-09-15 04:00:00</span>
+            </p>
+            <hr>
+            <p class="text_container_4">
+                <strong>Expiration Date</strong><span class="text_span">2028-09-14 04:00:00</span>
+            </p>
+            <hr>
+            <p class="text_container_5">
+                <strong>Update Date</strong><span class="text_span">2023-09-14 04:39:00</span>
+            </p>
+            <hr>
+            <p class="text_container_6">
+                <strong>Name Server</strong><span class="text_span">NS1.GOOGLE.COM,<br> NS2.GOOGLE.COM,<br>
+                    NS3.GOOGLE.COM<br></span>
+            </p>
+            <hr>
+            <p class="text_container_7">
+                <strong>Status</strong><img class="icon_container_7" src="./img/pajamas_status-closed.svg"><span
+                    class="text_span">client Update
+                    Prohibited,<br>
+                    client
+                    Transfer Prohibited,<br> client Delete Prohibited<br></span>
+            </p>
+            <hr>
+            <p class="text_container_8">
+                <strong>Owner</strong><span class="text_span_8">Google LLC</span>
+            </p>
+            <hr>
+        </div>
+
+        <div id="section_spf" class="section_spf">
+            <h1 class="text_section_spf">
+                How do you want to scan your E-Mail <br> Header ?
+            </h1>
+            <div class="btn_spf_1">
+                <a id="but_spf_1" class="but_spf_1" href="#section_4">Whois lookup</a>
+                <a id="but_spf_2" class="but_spf_2" href="#section_3">SPF & DMARK & DKIM Check</a>
+            </div>
+            <div class="btn_spf_2">
+                <a id="but_spf_3" class="but_spf_3" href="#section_Check">Check domain in Black List</a>
+                <a id="but_spf_4" class="but_spf_4" href="#section_Extract">Extract Header Information</a>
+            </div>
+
+        </div>
+        <div class="container_two">
+            <div class="SPF_DMARC">
+                <h1 class="text_SPF">Whois Lookup</h1>
+                <div class="spf_box">
+                    <input class="spf_text_box" required type="text" placeholder="Input Domain Name....">
+                    <p><button class="spf_btn_box">Check</button></p>
+                </div>
+            </div>
+            <div class="result_container_spf">
+                <h1 class="h1_spf">SPF</h1>
+                <p class="container_spf_1">
+                    <strong class="text_strong_1">Status</strong><span class="span_spf_1">Fail</span><img
+                        class="icon_spf" src="./img/Vector (2).svg" alt="">
+                </p>
+                <p class="container_spf_2">
+                    <strong class="text_strong_2">Mail From</strong><span class="span_spf_2">Phishing.com</span>
+                </p>
+                <p class="container_spf_3">
+                    <strong class="text_strong_3">Authorized</strong><span class="span_spf_3">No</span>
+                </p>
+                <p class="container_spf_4">
+                    <strong class="text_strong_4">Comment</strong><span class="span_spf_4">SPF Validation Failed</span>
+                </p>
+                <hr>
+
+                <h1 class="h1_dmarc">DMARC</h1>
+                <p class="container_Dmarc_1">
+                    <strong class="text_Status">Status</strong><span class="span_dmarc_1">Safe</span><img
+                        class="icon_dmarc" src="./img/Vector (3).svg" alt="">
+                <p class="container_Dmarc_2">
+                    <strong class="text_Policy">Policy</strong><span class="span_dmarc_2">Reject</span>
+                </p>
+                <p class="container_Dmarc_3">
+                    <strong class="text_Alignment">Alignment</strong><span class="span_dmarc_3">Failed</span>
+                </p>
+                <p class="container_Dmarc_4">
+                    <strong class="text_Comment">Comment</strong><span class="span_dmarc_4">DMARC Validation Failed
+                        .<br>
+                        Policy Applied : reject<br>
+                        Domain Alignment : Failed </span>
+                </p>
+                <hr>
+                <h1 class="h1_dkim">DKIM</h1>
+                <p class="container_Dkim_1">
+                    <strong class="text_status_1">Status</strong><span class="span_dkim_1">Safe</span><img
+                        class="icon_dkim" src="./img/Vector (3).svg" alt="">
+                </p>
+                <p class="container_Dkim_2">
+                    <strong class="text_signing">Signing Domain</strong><span class="span_dkim_2"><a
+                            href="">malicious.com</a></span>
+                </p>
+                <p class="container_Dkim_3">
+                    <strong class="text_Header_1">Header Integrity</strong><span class="span_dkim_3"> Possibly
+                        Altered</span>
+                </p>
+                <p class="container_Dkim_4">
+                    <strong class="text_Comment_1">Comment</strong><span class="span_dkim_4">DKIM Validation Failed
+                        .<br>
+                        Email signed by <a href="#">malicious.com</a><br>
+                        Header Integrity : Possibly Altered </span>
+                </p>
+                <hr class="end">
+            </div>
+
+
+
+
+
+
+
+
+
+        </div>
+
+        <div id="section_Check" class="section_Check">
+            <h1 class="text_section_Check">
+                How do you want to scan your E-Mail <br> Header ?
+            </h1>
+            <div class="btn_Check_1">
+                <a id="but_Check_1" class="but_Check" href="#section_4">Whois lookup</a>
+                <a id="but_Check_2" class="but_Check" href="#section_spf">SPF & DMARK & DKIM Check</a>
+            </div>
+            <div class="btn_Check_2">
+                <a id="but_Check_3" class="but_Check_3" href="#section_3">Check domain in Black List</a>
+                <a id="but_Check_4" class="but_Check" href="#section_Extract">Extract Header Information</a>
+            </div>
+        </div>
+
+        <div class="container_three">
+            <div class="Check_domain">
+                <h1 class="text_check">Check Domain in Black List</h1>
+                <div class="check_box">
+                    <input class="check_text_box" required type="text" placeholder="Input Domain Name....">
+                    <p><button class="check_but_box">Check</button></p>
+                </div>
+            </div>
+            <div class="result_container_check">
+
+                <p class="container_check_1">
+                    <strong class="text_check_1">Domain</strong><span class="span_check_1"><a href="">
+                            google.com</a></span>
+                </p>
+                <p class="container_check_2">
+                    <strong class="text_check_2">Malicious Votes</strong><span class="span_check_2">0</span>
+                </p>
+                <p class="container_check_3">
+                    <strong class="text_check_3">Suspicious Votes</strong><span class="span_check_3">0</span>
+                </p>
+
+                <p class="container_check_4">
+                    <strong class="text_check_4">Status</strong><span class="span_check_4">Safa</span><img
+                        class="icon_spf" src="./img/Vector (3).svg" alt="">
+                </p>
+            </div>
+        </div>
+
+        <div id="section_Extract" class="section_Extract_Header">
+            <h1 class="text_section_Extract">
+                How do you want to scan your E-Mail <br> Header ?
+            </h1>
+            <div class="btn_Extract_1">
+                <a id="but_Extract_1" class="but_Extract" href="#section_4">Whois lookup</a>
+                <a id="but_Extract_2" class="but_Extract" href="#section_spf">SPF & DMARK & DKIM Check</a>
+            </div>
+            <div class="btn_Extract_2">
+                <a id="but_Extract_3" class="but_Extract" href="#section_Check">Check domain in Black List</a>
+                <a id="but_Extract_4" class="but_Extract_4" href="#section_3">Extract Header Information</a>
+            </div>
+        </div>
+
+        <div class="container_four">
+            <div class="Extract_Header">
+                <h1 class="text_extract">Extract Header Information</h1>
+                <div class="extract_box">
+                    <input class="extract_text_box" required type="text" placeholder="Input Domain Name....">
+                    <p><button class="extract_but_box">Check</button></p>
+                </div>
+            </div>
+            <div class="result_container_Extract">
+
+                <p class="container_Extract_1">
+                    <strong class="text_Extract_1">From</strong><img class="icon_Extract" src="./img/Vector (4).svg"
+                        alt=""><span class="span_Extract_1"><a href="">sender@example.com
+                        </a></span>
+                </p>
+                <hr class="hr_Extract">
+                <p class="container_Extract_2">
+                    <strong class="text_Extract_2">To</strong><img class="icon_Extract_2" src="./img/Vector (5).svg"
+                        alt=""><span class="span_Extract_2"><a href="">recipient@example.com</a></span>
+                </p>
+                <hr class="hr_Extract">
+                <p class="container_Extract_3">
+                    <strong class="text_Extract_3">Subject</strong><span class="span_Extract_3">Test Email</span>
+                </p>
+                <hr class="hr_Extract">
+                <p class="container_Extract_4">
+                    <strong class="text_Extract_4">Date</strong><span class="span_Extract_4">2024-02-05 T
+                        10:30:00+00:00</span>
+                </p>
+                <hr class="hr_Extract">
+                <p class="container_Extract_5">
+                    <strong class="text_Extract_5">Message-ID</strong><span class="span_Extract_5"><a
+                            href="">12345678@example.com</a></span>
+                </p>
+                <hr class="hr_Extract">
+                <p class="container_Extract_6">
+                    <strong class="text_Extract_6">Replt-To</strong><img class="icon_Extract_6"
+                        src="./img/Vector (6).svg" alt=""><span class="span_Extract_6"><a
+                            href="">reply@example.com</a></span>
+                </p>
+                <hr class="hr_Extract">
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="container">
+
+            <div class="child">
+                <span class="text_1">Registrar</span>
+                <img src="./img/Vector.svg" alt="image_icon">
+            </div>
+
+            <span class="text_2">27/10/2002</span>
+        </div>-->
+
+</body>
+
+</html>

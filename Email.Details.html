@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./img/logo_nav.png">
+    <meta http-equiv="refresh" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/Email.Details.css">
+    <title>Phirus</title>
+</head>
+
+<body>
+    <div class="container_header">
+        <div class="top_header">
+            <span class="top_title">Check</span>
+            <a href="home.php"><img class="top_icon" src="./img/arr33.svg" alt=""></a>
+            <span class="top_title">Result</span>
+        </div>
+        <div class="text_and_img">
+            <a href="features.html"><img class="top_logo" src="./img/Logo (1).svg" alt=""></a>
+            <a class="text_1" href="features.html">Phirus</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container_navbar">
+            <a class="link_1" href="#">Email Details</a>
+            <a class="link_2" href="Domain.Analysis.html">Domain Analysis</a>
+            <a class="link_3" href="Suspicious.subject.html">Suspicious subject</a>
+            <a class="link_4" href="Extracting.URLS .html">Extracting URLS</a>
+            <a class="link_5" href="Extracting.Attachments.html">Extracting Attachments</a>
+        </div>
+    </nav>
+
+    <div id="full_mail_check" style="max-width: 600px; margin: 80px auto; padding: 30px; background: #fff; border-radius: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center;">
+        <h1 style="font-size: 28px; margin-bottom: 20px; color: #333;">Email Analysis</h1>
+        <div style="margin-top: 20px;">
+            <input id="domain_input" required type="file" accept=".eml,.txt" style="width: 90%; max-width: 400px; padding: 12px 15px; font-size: 16px; border: 1px solid #ccc; border-radius: 8px; margin-bottom: 10px;">
+            <br>
+            <div id="file_name_display" style="font-size: 14px; color: #555; margin-bottom: 20px;"></div>
+            <button id="button_full_analysis" style="background: #007bff; color: #fff; border: none; padding: 10px 25px; font-size: 16px; border-radius: 8px; cursor: pointer;">Check</button>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('domain_input');
+        const fileNameDisplay = document.getElementById('file_name_display');
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files.length > 0) {
+                fileNameDisplay.textContent = "Selected file: " + fileInput.files[0].name;
+            } else {
+                fileNameDisplay.textContent = "";
+            }
+        });
+    </script>
+
+    <div class="container_email_details">
+        <p class="text_one">
+            <strong class="text_strong">Date</strong><span class="text_span" id="date"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Sender Name</strong><span class="text_span" id="sender_name"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Sender Email</strong><span class="text_span" id="sender_email"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Sender Domain</strong><span class="text_span" id="sender_domain"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Sender IP</strong><span class="text_span" id="sender_ip"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Reply-To</strong><span class="text_span" id="reply_to"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Return-Path</strong><span
+                class="text_span" id="return_path"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">DMARC</strong><span class="text_span" id="dmarc"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">DKIM</strong><span class="text_span" id="dkim"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Recipient Email</strong><span
+                class="text_span" id="recipient"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">Subject</strong><span class="text_span" id="subject"></span>
+        </p>
+        <hr>
+        <p class="text">
+            <strong class="text_strong">SPF</strong><span class="text_span" id="spf">
+                <br>
+                <br>
+            </span>
+        </p>
+    </div>
+
+    <script>
+            document.getElementById("button_full_analysis").addEventListener("click", function(event) {
+            event.preventDefault();
+            const fileInput = document.getElementById("domain_input");
+            const file = fileInput.files[0];
+
+            if (!file) {
+            alert("Please select an .eml or .txt file.");
+            return;
+        }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("http://localhost:5000/analyze_email", {
+            method: "POST",
+            body: formData,
+        })
+            .then(res => res.json())
+            .then(data => {
+            if (!data || data.error) {
+            alert(data?.error || "An error occurred.");
+            return;
+        }
+
+            // Safe assignments with fallback
+            document.getElementById("date").textContent = data.date ?? "Not available";
+            document.getElementById("sender_name").textContent = data.sender_name ?? "Not available";
+            document.getElementById("sender_email").textContent = data.sender_email ?? "Not available";
+            document.getElementById("sender_domain").textContent = data.sender_domain ?? "Not available";
+            document.getElementById("sender_ip").textContent = data.sender_ip ?? "Not available";
+            document.getElementById("reply_to").textContent = data.reply_to ?? "Not available";
+            document.getElementById("return_path").textContent = data.return_path ?? "Not available";
+            document.getElementById("dmarc").textContent = data.dmarc ?? "Not available";
+            document.getElementById("dkim").textContent = data.dkim ?? "Not available";
+            document.getElementById("recipient").textContent = data.recipient ?? "Not available";
+            document.getElementById("subject").textContent = data.subject ?? "Not available";
+            document.getElementById("spf").textContent = data.spf ?? "Not available";
+
+            // If your API has 'malicious' or other fields, protect them too:
+            // Example:
+            // document.getElementById("malicious").textContent = data.malicious ?? "Not available";
+        })
+            .catch(error => {
+            console.error("Fetch error:", error);
+            alert("An error occurred while extracting email info: " + error.message);
+        });
+
+        });
+
+
+    </script>
+
+</body>
+
+</html>

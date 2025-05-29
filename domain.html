@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./img/logo_nav.png">
+    <meta http-equiv="refresh" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/domain.css">
+    <title>Phirus</title>
+</head>
+
+<body>
+    <nav>
+        <div class="logo_navbar_home">
+            <a href="index.php">
+                <img class="logo_img" src="./img/logo_nav.png" alt="logo_icon"></a>
+            <a class="logo_text" href="index.php">Phirus</a>
+        </div>
+        <ul class="links">
+            <a class="li" href="home.php">
+                <li>Home</li>
+            </a>
+            <a class="li" href="features.html">
+                <li>Features</li>
+            </a>
+            <a class="li" href="#">
+                <li>Pro</li>
+            </a>
+            <a class="li" href="#footer">
+                <li>About us</li>
+            </a>
+        </ul>
+        <div class="links_navbar">
+            <a class="login_nav" href="login.html">Login</a>
+            <a class="signup_nav" href="signup.html">Sign up</a>
+        </div>
+    </nav>
+
+    <div class="hero_section">
+        <h1 class="section_1_h1"> How do yo want to scan your E-mail ?</h1>
+        <div class="text_and_img">
+            <p class="text_p_1">
+                Now , you can scan your e-mail and be<br>
+                sure that your e-mail isn’t phishing or<br>
+                malicious with some Primary features<br>
+                and every primary feature has some sub<br>
+                features
+            </p>
+            <img class="image_section_1" src="./img/features_1.svg" alt="image">
+        </div>
+    </div>
+
+    <div class="section_2">
+        <h1 class="section_2_h1">
+            Checking the Header of your<br> E-mail
+        </h1>
+        <div class="image_section_2">
+            <div class="img_features_1">
+                <a href="#">
+                    <img src="./img/image 3.svg" alt="image" />
+                    <p>Header</p>
+                </a>
+            </div>
+            <div class="img_features_2">
+                <a href="Body.html">
+                    <img src="./img/image 2.svg" alt="image" />
+                    <p>Body</p>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="section_domain" class="section_domain">
+        <h1 class="section_4_h1">
+            How do you want to scan your E-MailHeader ?
+        </h1>
+        <div class="three">
+            <a id="but_5" class="but_5" href="features.html">Whois lookup</a>
+            <a class="but_6" href="spf.html">SPF & DMARK & DKIM Check</a>
+        </div>
+        <div class="four">
+            <a class="but_7" href="#">Check domain in Black List</a>
+            <a class="but_8" href="extract.html">Extract Header Information</a>
+        </div>
+    </div>
+
+    <div id="check_domain" class="check_domain">
+        <h1 class="section_5_h1">Check domain in Black List</h1>
+        <div class="domain_box">
+            <input id="domain_input" class="check_box" required type="text" placeholder="Input Domain Name....">
+            <p><button type="submit" id="button_domain" class="button_domain">Check</button></p>
+        </div>
+    </div>
+
+    <div class="container_check_domain">
+        <div class="container_domain">
+            <p class="domain_1">
+                <strong class="strong_domain_1">Domain</strong><span class="span_domain_1" id = "domain"><a
+                        href="https://accounts.google.com">google.com</a></span>
+            </p>
+            <p class="domain_2">
+                <strong class="strong_domain_2">Malicious Votes</strong><span class="span_domain_2" id = "malicious_votes">0</span>
+            </p>
+            <p class="domain_3">
+                <strong class="strong_domain_3">Suspicious Votes</strong><span class="span_domain_3" id = "suspicious_votes">0</span>
+            </p>
+            <p class="domain_4">
+                <strong class="strong_domain_4">Status</strong><span class="span_domain_4" id = "status">Safe</span><img
+                    class="icon_domain_4" src="./img/Vector (3).svg" alt="">
+            </p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("button_domain").addEventListener("click", function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            const domainName = document.getElementById("domain_input").value;
+            if (domainName === "") {
+                alert("Please enter a domain name.");
+                return;
+            }
+
+            fetch("https://web-production-98be.up.railway.app/blacklist", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ domain: domainName }),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Check if the response contains an error
+                    if (data.error) {
+                        alert(data.error);
+                        return;
+                    }
+
+                    // Populate the Whois information
+                    document.getElementById("domain").textContent = data.domain;
+                    document.getElementById("malicious_votes").textContent = data.malicious_votes;
+                    document.getElementById("suspicious_votes").textContent = data.suspicious_votes;
+                    const statusText = data.status === "alert" ? "Unsafe!" : "Safe";
+                    document.getElementById("status").textContent = statusText;
+
+                    const statusIcon = document.querySelector(".icon_domain_4");
+                    if (data.status === "alert") {
+                        statusIcon.src = "./img/alert-svgrepo-com.svg";
+                    } else {
+                        statusIcon.src = "./img/Vector (3).svg";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while fetching WHOIS data.");
+                });
+        });
+    </script>
+
+    <footer class="footer" id="footer">
+        <div class="container">
+            <div class="footer_section_1">
+                <div class="icon_and_text">
+                    <a href=""><img class="img_1" src="./img/Logo (1).svg" alt=""></a>
+                    <a href="">
+                        <h2 class="text_h2_section_1">Phirus</h2>
+                    </a>
+                </div>
+                <p class="p_section_1">Copyright © 2024 Phirus.</p>
+                <span class="span_section_1">All rights reserved</span>
+                <div class="icon_three_section_1">
+                    <a href=""><img class="img_2" src="./img/Social Icons.svg" alt="Instagram"></a>
+                    <a href=""><img class="img_3" src="./img/Icons2.svg" alt="Twitter"></a>
+                    <a href=""><img class="img_4" src="./img/Icons3.svg" alt="Youtube"></a>
+                </div>
+            </div>
+            <div class="container_three">
+                <div class="footer_section_2">
+                    <h2 class="text_h2_section_2">Company</h2>
+                    <ul>
+                        <li><a href="">About us</a></li>
+                        <li><a href="">Blog</a></li>
+                        <li><a href="">Contact us</a></li>
+                        <li><a href="">Pricing</a></li>
+                        <li><a href="">Testimonials</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer_section_3">
+                    <h2 class="text_h2_section_3">Support</h2>
+                    <ul>
+                        <li><a href="">Help center</a></li>
+                        <li><a href="">Terms of service</a></li>
+                        <li><a href="">Legal</a></li>
+                        <li><a href="">Privacy policy</a></li>
+                        <li><a href="">Status</a></li>
+                    </ul>
+                </div>
+                <div class="footer_section_4">
+                    <h2 class="text_h2_section_4">Stay up to date</h2>
+                    <form class="subscribe_form">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit"><img src="./img/0.svg" alt=""></button>
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </footer>
+</body>
+
+</html>

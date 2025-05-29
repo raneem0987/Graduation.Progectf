@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="./img/logo_nav.png">
+    <meta http-equiv="refresh" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/Domain.Analysis.css">
+    <title>Phirus</title>
+</head>
+
+<body>
+    <div class="container_header">
+        <div class="top_header">
+            <span class="top_title">Check</span>
+            <a href="home.php"><img class="top_icon" src="./img/arr33.svg" alt=""></a>
+            <span class="top_title">Result</span>
+        </div>
+        <div class="text_and_img">
+            <a href="features.html"><img class="top_logo" src="./img/Logo (1).svg" alt=""></a>
+            <a class="text_1" href="features.html">Phirus</a>
+        </div>
+    </div>
+
+    <nav class="navbar">
+        <div class="container_navbar">
+            <a class="link_1" href="Email.Details.html">Email Details</a>
+            <a class="link_2" href="#">Domain Analysis</a>
+            <a class="link_3" href="Suspicious.subject.html">Suspicious subject</a>
+            <a class="link_4" href="Extracting.URLS .html">Extracting URLS</a>
+            <a class="link_5" href="Extracting.Attachments.html">Extracting Attachments</a>
+        </div>
+    </nav>
+
+    <div class="container_email_details">
+
+        <div class="Virus_Total">
+            <img src="./img/Virus.svg" alt="">
+            <p>VirusTotal Domain Last Analysis Stats:</p>
+        </div>
+
+
+        <input type="file" accept=".eml,.txt" id="file_input" accept=".txt, .csv">
+        <button id="upload_button">Upload File</button>
+
+        <p class="text_one">
+            <strong class="text_strong_one">Malicious</strong><span class="text_span_one">0</span>
+        </p>
+        <hr>
+        <p class="text_one">
+            <strong class="text_strong_one">Suspicious</strong><span class="text_span_one">0</span>
+        </p>
+        <hr>
+        <p class="text_one">
+            <strong class="text_strong_one">Undetected</strong><span class="text_span_one">31</span>
+        </p>
+        <hr>
+        <p class="text_one">
+            <strong class="text_strong_one">Harmless</strong><span class="text_span_one">63</span>
+        </p>
+        <hr>
+        <p class="text_one">
+            <strong class="text_strong_one">Timeout</strong><span class="text_span_one">0</span>
+        </p>
+        <hr>
+
+        <div class="WHOIS_Information">
+            <img src="./img/whois privacy.svg" alt="">
+            <p>WHOIS Information:</p>
+        </div>
+
+        <p class="text_two">
+            <strong class="text_strong_two">Creation Date</strong><span class="text_span_two">[datetime.datetime(2011,
+                5, 31, 14, 49, 10), datetime.datetime(2011, 5, 31, 14, 49, 10,
+                <br> tzinfo=datetime.timezone.utc)]</span>
+        </p>
+        <hr>
+        <p class="text_two">
+            <strong class="text_strong_two">Expiration Date</strong><span class="text_span_two">[datetime.datetime(2026,
+                5, 31, 14, 49,
+                10), datetime.datetime(2026, 5, 31, 0, 0,
+                <br> tzinfo=datetime.timezone.utc)]<br>
+                Organization: Reddit Inc.</span>
+        </p>
+    </div>
+    <script>
+        document.getElementById("upload_button").addEventListener("click", function(event) {
+            event.preventDefault();
+
+            const fileInput = document.getElementById("file_input");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select a file.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch("http://localhost:5000/analyze_email", {
+                method: "POST",
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+
+                    // 1. VirusTotal stats
+                    const vt = data.domain_analysis.virustotal.last_analysis_stats;
+                    document.getElementById("malicious_count").textContent = vt.malicious || 0;
+                    document.getElementById("suspicious_count").textContent = vt.suspicious || 0;
+                    document.getElementById("undetected_count").textContent = vt.undetected || 0;
+                    document.getElementById("harmless_count").textContent = vt.harmless || 0;
+                    document.getElementById("timeout_count").textContent = vt.timeout || 0;
+
+                    // 2. WHOIS information
+                    const whois = data.domain_analysis.whois;
+                    document.getElementById("creation_date_info").textContent = whois.creation_date || "Not available";
+                    document.getElementById("expiration_date_info").innerHTML = `
+            ${whois.expiration_date || "Not available"}
+            <br>Organization: ${whois.organization || "Unknown"}
+        `;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    alert("An error occurred while uploading the file.");
+                });
+        });
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    background: #313765;
+    font-family: Roboto;
+}
+
+.container_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 40px;
+}
+
+.top_header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 21px;
+    gap: 24px;
+}
+
+.top_title {
+    font-weight: 500;
+    font-size: 24px;
+}
+
+.top_icon {
+    width: 26px;
+    height: 26px;
+}
+
+.text_and_img {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 21px;
+    gap: 7px;
+}
+
+.top_logo {
+    width: 51px;
+    height: 51px;
+    text-decoration: none;
+}
+
+.top_logo:hover {
+    transform: rotate(360deg) scale(1.1);
+    transition: 0.8s ease-in-out;
+}
+
+.text_1 {
+    font-weight: 500;
+    font-size: 24px;
+    text-decoration: none;
+    transition: 0.8s ease-in-out;
+    color: #fff;
+}
+
+.text_1:hover {
+    transform: scale(1.1);
+    color: #4A90E2;
+}
+
+.navbar {
+    height: 88px;
+    background-color: #1D224A;
+    display: flex;
+}
+
+.container_navbar {
+    display: flex;
+    align-items: center;
+    padding-inline: 80px;
+    gap: 75px;
+
+}
+
+.link_1 {
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 155px;
+    height: 27px;
+    transition: 0.8s ease-in-out;
+}
+
+.link_2 {
+    width: 176px;
+    height: 54px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 18px;
+    background-color: #fff;
+    color: #343B74;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.8s ease-in-out;
+}
+
+.link_2:hover {
+    background-color: transparent;
+    color: #fff;
+}
+
+.link_3 {
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 176px;
+    height: 27px;
+    transition: 0.8s ease-in-out;
+}
+
+.link_4 {
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 141px;
+    height: 27px;
+    transition: 0.8s ease-in-out;
+}
+
+.link_5 {
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    width: 219px;
+    height: 27px;
+    transition: 0.8s ease-in-out;
+}
+
+.link_1:hover,
+.link_3:hover,
+.link_4:hover,
+.link_5:hover {
+    transform: scale(1.1);
+    color: #4A90E2;
+}
+
+/* end navbar*/
+
+.container_email_details {
+    margin: auto;
+    margin-top: 30px;
+    margin-bottom: 180px;
+    width: 95%;
+    height: 1015px;
+    top: 215px;
+    left: 52px;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.Virus_Total {
+    display: flex;
+    align-items: center;
+    padding-left: 24px;
+    padding-top: 36px;
+    padding-bottom: 15px;
+}
+
+.Virus_Total img {
+    width: 36px;
+    height: 36px;
+}
+
+.Virus_Total p {
+    font-weight: 600;
+    font-size: 26px;
+    color: #38408D;
+}
+
+.text_one {
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    gap: 80px;
+}
+
+.text_strong_one {
+    font-weight: 600;
+    font-size: 22px;
+    color: #1D224A;
+    width: 191px;
+    height: 36px;
+}
+
+.text_span_one {
+    color: #525252;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.WHOIS_Information {
+    display: flex;
+    align-items: center;
+    padding-left: 29px;
+    padding-top: 36px;
+    padding-bottom: 15px;
+    gap: 15px;
+}
+
+.WHOIS_Information img {
+    width: 50px;
+    height: 50px;
+}
+
+.WHOIS_Information p {
+    font-weight: 600;
+    font-size: 26px;
+    color: #38408D;
+}
+
+.text_two {
+    display: flex;
+    align-items: center;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    gap: 80px;
+}
+
+.text_strong_two {
+    font-weight: 600;
+    font-size: 22px;
+    color: #1D224A;
+    width: 191px;
+    height: 36px;
+}
+
+.text_span_two {
+    color: #525252;
+    font-weight: 400;
+    font-size: 18px;
+}
+
+hr {
+    border: 1px solid #D2D2D2;
+}

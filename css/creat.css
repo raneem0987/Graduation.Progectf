@@ -1,0 +1,116 @@
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(0deg, #1C1F3B, #1C1F3B);
+    color: #fff;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+.Back_Arrow {
+    margin-top: 60px;
+    margin-left: 60px;
+
+}
+
+.icon {
+    width: 25px;
+    height: 25px;
+    transition: color 0.3s, transform 0.6s;
+    color: #fff;
+}
+
+.icon:hover {
+    opacity: 4s;
+    color: rgb(56, 55, 55);
+    transform: scale(0.8);
+}
+
+.logo {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 40px;
+    margin-bottom: 80px;
+}
+
+.logo_img {
+    width: 180px;
+    height: 180px;
+    top: 40px;
+    position: absolute;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 80px;
+    position: relative;
+
+}
+
+.card {
+
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.2);
+    margin-bottom: 46px;
+    text-align: center;
+    width: 450px;
+    height: 718px;
+}
+
+h1 {
+    padding-top: 120px;
+    color: #fff;
+    font-size: 32px;
+    line-height: 150%;
+    letter-spacing: 0%;
+    margin-bottom: 28px;
+}
+
+.text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 15px;
+    margin-bottom: 68px;
+
+}
+
+.creat_box {
+    margin-bottom: 24px;
+}
+
+input {
+    margin: auto;
+    width: 70%;
+    padding: 15px 40px;
+    border-radius: 20px;
+    border: none;
+    display: block;
+    outline: none;
+}
+
+input:focus {
+    border: 2px solid #4A90E2;
+}
+
+button {
+    margin: auto;
+    width: 87%;
+    padding: 15px 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #4A90E2;
+    color: #fff;
+    font-size: 20px;
+    transition: 0.9s;
+}
+
+button:hover {
+    background-color: #2d5164;
+}
